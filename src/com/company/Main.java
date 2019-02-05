@@ -7,7 +7,6 @@ import java.io.*;
 public class Main {
     public static void main(String[] argv) {
 
-
         PrintWriter pw;
         Scanner sc;
 
