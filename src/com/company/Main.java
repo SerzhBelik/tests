@@ -1,38 +1,40 @@
 package com.company;
-import java.util.*;
-import java.io.*;
 
 public class Main {
-    public static void main(String[] argv) {
+    public static void main(String[] args) {
+        long timeStart;
+        long timeFinish;
+        MyArrayList list = new MyArrayList<>(100000);
+        MyArrayList testList;
 
-        PrintWriter pw;
-        Scanner sc;
+        fillList(list);
 
-        sc = new Scanner(System.in);
-        String a = sc.nextLine();
-        pw = new PrintWriter(System.out);
-        String[] b = a.split(" ");
+//        для чистоты эксперемента в каждой сортировке используется копия массива list
+        testList = list.clone();
+        timeStart = System.currentTimeMillis();
+        testList.insertSort();
+        timeFinish = System.currentTimeMillis();
+        System.out.println("insertSort result = " + (timeFinish-timeStart));
 
-        for (int i = 1; i < b.length; i++){
-            while (b[0].length() > b[i].length()) {
-                StringBuffer c = new StringBuffer(b[i]);
-                c.insert(0, 0);
-                b[i] = c.toString();
-            }
-            while (b[i].length() > b[0].length()) {
-                StringBuffer c = new StringBuffer(b[0]);
-                c.insert(0, 0);
-                b[0] = c.toString();
-            }
+        testList = list.clone();
+        timeStart = System.currentTimeMillis();
+        testList.selectSort();
+        timeFinish = System.currentTimeMillis();
+        System.out.println("selectSort result = " + (timeFinish-timeStart));
 
+        testList = list.clone();
+        timeStart = System.currentTimeMillis();
+        testList.bubbleSort();
+        timeFinish = System.currentTimeMillis();
+        System.out.println("bubbleSort result = " + (timeFinish-timeStart));
 
-            if (b[0].compareTo(b[i]) < 0){
-                b[0] = b[i];
-            }
-        }
-        System.out.println(b[0]);
-
-        pw.close();
 
     }
+
+    private static void fillList(MyArrayList list){
+        for (int i =0; i < list.getCapacity(); i++){
+            list.add((int)(Math.random()*100000));
+        }
+    }
+
 }
