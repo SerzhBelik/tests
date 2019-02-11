@@ -1,7 +1,7 @@
 package com.company;
 
 public class Main {
-    private final static int CAPACITY = 100000;
+
     public static void main(String[] args) {
 
         MyDeque<Integer> deque = new MyDeque<>(5);
@@ -11,8 +11,8 @@ public class Main {
             } else {
                 deque.insertLeft(i);
             }
-
         }
+
         System.out.println(deque);
 
         for (int i = 0; i < 18; i++){
@@ -21,10 +21,11 @@ public class Main {
             } else {
                 deque.removeLeft();
             }
-
         }
 
         System.out.println(deque);
+
+        System.out.println(StringInverter.invert("123 4567 89012")); // 21098 7654 321
 
 }
 
