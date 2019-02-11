@@ -4,6 +4,8 @@ public class MyPriorityQueue<Item extends Comparable> {
     private Item[] list;
     private int size = 0;
     private final int DEFAULT_CAPACITY = 10;
+    private final double overloadFactor = 0.75;
+    private final double underloadFactor = 0.25;
 
     public MyPriorityQueue(int capacity) {
         if (capacity <= 0) {
@@ -18,8 +20,8 @@ public class MyPriorityQueue<Item extends Comparable> {
     }
 
     public void insert(Item item) {
-        if (isFull()) {
-            throw new StackOverflowError("queue full");
+        if (isOverload()) {
+            resize(size*2);
         }
         list[size] = item;
         size++;
@@ -31,9 +33,8 @@ public class MyPriorityQueue<Item extends Comparable> {
     }
 
     public Item remove() {
-        if (isEmpty()) {
-            System.out.println("queue empty");
-            return null;
+        if (isUndeload()) {
+            resize((int) (size * 1.5));
         }
         Item temp = peek();
         size--;
@@ -64,9 +65,10 @@ public class MyPriorityQueue<Item extends Comparable> {
     }
 
     private void resize(int newSize) {
-        Item[] tempArr = (Item[]) new Object[newSize];
-        System.arraycopy(list, 0, tempArr, 0, list.length);
+        Item[] tempArr = (Item[]) new Comparable[newSize];
+
         list = tempArr;
+        System.out.println("resized to new size " + newSize);
     }
 
     @Override
@@ -77,5 +79,14 @@ public class MyPriorityQueue<Item extends Comparable> {
         }
         return s.toString();
     }
+
+    public boolean isOverload(){
+        return  (double)size / list.length > overloadFactor;
+    }
+
+    public boolean isUndeload(){
+        return (double)size / list.length < underloadFactor;
+    }
+
 }
 

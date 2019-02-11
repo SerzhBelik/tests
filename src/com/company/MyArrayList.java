@@ -120,9 +120,11 @@ public class MyArrayList<Item extends Comparable> {
 
     @Override
     public String toString() {
-        return "MyArrayList{" +
-                "list=" + Arrays.toString(list) +
-                '}';
+        StringBuffer s = new StringBuffer();
+        for (int i = 0; i < list.length ; i++) {
+            s.append(list[i]+" ");
+        }
+        return s.toString();
     }
 
     public int getSize() {

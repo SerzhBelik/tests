@@ -1,11 +1,16 @@
 package com.company;
 
+import java.lang.reflect.Array;
+import java.util.Arrays;
+
 public class MyDeque<Item> {
     private Item[] list;
     private int size = 0;
     private final int DEFAULT_CAPACITY = 10;
     private int leftMark = 0;
     private int rightMark = 0;
+    private final double overloadFactor = 0.75;
+    private final double underloadFactor = 0.25;
 
     public MyDeque(int capacity) {
         if (capacity <= 0) {
@@ -27,8 +32,8 @@ public class MyDeque<Item> {
     }
 
     public void insertRight(Item item){
-        if (isFull()){
-            throw new StackOverflowError();
+        if (isOverload()){
+            resize(size*2);
         }
         size++;
         list[rightMark]=item;
@@ -36,8 +41,8 @@ public class MyDeque<Item> {
     }
 
     public void insertLeft(Item item){
-        if (isFull()){
-            throw new StackOverflowError();
+        if (isOverload()){
+            resize(size*2);;
         }
         size++;
         list[leftMark]=item;
@@ -53,7 +58,10 @@ public class MyDeque<Item> {
     }
 
     public Item removeRight(){
-        Item temp = peekLeft();
+        if (isUndeload()){
+            resize((int) (size * 1.5));
+        }
+        Item temp = peekRight();
         size--;
         list[lastIndex(rightMark)] = null;
         rightMark = lastIndex(rightMark);
@@ -64,13 +72,13 @@ public class MyDeque<Item> {
         if (isEmpty()){
             throw new StackOverflowError("size == 0");
         }
-        return list[rightMark];
+        return list[lastIndex(rightMark)];
     }
     public Item peekLeft(){
         if (isEmpty()){
             throw new StackOverflowError("size == 0");
         }
-        return list[leftMark];
+        return list[nextIndex(leftMark)];
     }
 
     public int size() {
@@ -101,6 +109,33 @@ public class MyDeque<Item> {
             s.append(list[i]+" ");
         }
         return s.toString();
+    }
+
+    public boolean isOverload(){
+        return  (double)size / list.length > overloadFactor;
+    }
+
+    public boolean isUndeload(){
+        return (double)size / list.length < underloadFactor;
+    }
+
+    private void resize(int newSize) {
+        Item[] tempArr = (Item[]) new Comparable[newSize];
+
+        for (int i = 0; i < Math.min(newSize - 1, size); i++){
+            tempArr[i] = peekLeft();
+            leftMark = nextIndex(leftMark);
+        }
+        leftMark = newSize-1;
+        rightMark = size;
+        String s = Arrays.toString(list);
+//        System.out.println(s);
+        list = tempArr;
+        s = Arrays.toString(list);
+        System.out.println("resized to new size " + newSize);
+//        System.out.println(s);
+
+
     }
 
 
