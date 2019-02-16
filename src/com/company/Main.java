@@ -1,33 +1,23 @@
 package com.company;
 
+import java.util.ArrayList;
+import java.util.ListIterator;
+
 public class Main {
 
     public static void main(String[] args) {
+        MyLinkedList<String> mll = new MyLinkedList<>();
+        ListIterator<Node<String>> iter = mll.listIterator();
+        ArrayList<String> list = new ArrayList<>();
 
-        MyDeque<Integer> deque = new MyDeque<>(5);
-        for (int i = 0; i < 20; i++){
-            if (i % 2 == 0){
-                deque.insertRight(i);
-            } else {
-                deque.insertLeft(i);
-            }
-        }
+        iter.add(new Node<String>("a"));
+        iter.add(new Node<String>("b"));
+        iter.add(new Node<String>("c"));
+        iter.add(new Node<String>("d"));
+        iter.add(new Node<String>("f"));
+        iter.remove();
 
-        System.out.println(deque);
+        System.out.println(mll.toString());
 
-        for (int i = 0; i < 18; i++){
-            if (i % 2 == 0){
-                deque.removeRight();
-            } else {
-                deque.removeLeft();
-            }
-        }
-
-        System.out.println(deque);
-
-        System.out.println(StringInverter.invert("123 4567 89012")); // 21098 7654 321
-
-}
-
-
+    }
 }
