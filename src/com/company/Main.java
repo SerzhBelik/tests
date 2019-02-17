@@ -16,7 +16,11 @@ public class Main {
         // task №2
         TreeSet<Thing> things = new TreeSet<Thing>((o1, o2) -> o2.getUnitCost().compareTo(o1.getUnitCost()));
         setThings(things);
-        Bag bag = new Bag(50);
+        Iterator<Thing> i = things.iterator();
+        while (i.hasNext()){
+            System.out.println(i.next().getWeight());
+        }
+        Bag bag = new Bag(99);
         bag.fillBag(things);
         Iterator<Thing> iterator = bag.getThings().iterator();
         System.out.println("There are things in the bag:");
@@ -31,6 +35,8 @@ public class Main {
         things.add(new Thing(8, 12));
         things.add(new Thing(14, 45));
         things.add(new Thing(100, 800));
+        things.add(new Thing(50, 399));
+        things.add(new Thing(50, 399));
     }
 
     private static long exponentiate(int base, int exponent){

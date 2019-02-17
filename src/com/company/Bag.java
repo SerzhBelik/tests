@@ -30,14 +30,14 @@ public class Bag {
                 add(thing);
                 iterator.remove();
                 return true;
-            }
+            } else iterator.remove();
         }
         return false;
 
     }
 
     public void fillBag(TreeSet<Thing> things){
-        if (stow(things)) stow(things);
+        while (stow(things)) stow(things);
         stow(things);
     }
 
