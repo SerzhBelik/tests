@@ -38,7 +38,7 @@ public class Bag {
 
     public void fillBag(TreeSet<Thing> things){
         while (stow(things)) stow(things);
-        stow(things);
+
     }
 
     public ArrayList<Thing> getThings() {
