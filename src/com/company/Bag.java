@@ -22,20 +22,6 @@ public class Bag {
         this.things.add(thing);
     }
 
-//    private boolean stow(TreeSet<Thing> things){
-//        Iterator<Thing> iterator = things.iterator();
-//        while (iterator.hasNext()){
-//            Thing thing = iterator.next();
-//            if(capacity >= thing.getWeight()){
-//                add(thing);
-//                iterator.remove();
-//                return true;
-//            } else iterator.remove();
-//        }
-//        return false;
-//
-//    }
-
     public void fillBag(TreeSet<Thing> things){
         Iterator<Thing> iterator = things.iterator();
         if (!iterator.hasNext()){
@@ -44,13 +30,14 @@ public class Bag {
         Thing thing = iterator.next();
         if(capacity >= thing.getWeight()){
             add(thing);
-        }
+            iterator.remove();
+        } else iterator.remove();
 
-        iterator.remove();
         fillBag(things);
     }
 
     public ArrayList<Thing> getThings() {
         return things;
     }
+
 }

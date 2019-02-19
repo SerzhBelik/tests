@@ -18,4 +18,8 @@ public class Thing {
     public int getWeight() {
         return weight;
     }
+
+    public int getCost() {
+        return cost;
+    }
 }
