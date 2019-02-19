@@ -22,23 +22,32 @@ public class Bag {
         this.things.add(thing);
     }
 
-    private boolean stow(TreeSet<Thing> things){
-        Iterator<Thing> iterator = things.iterator();
-        while (iterator.hasNext()){
-            Thing thing = iterator.next();
-            if(capacity >= thing.getWeight()){
-                add(thing);
-                iterator.remove();
-                return true;
-            } else iterator.remove();
-        }
-        return false;
-
-    }
+//    private boolean stow(TreeSet<Thing> things){
+//        Iterator<Thing> iterator = things.iterator();
+//        while (iterator.hasNext()){
+//            Thing thing = iterator.next();
+//            if(capacity >= thing.getWeight()){
+//                add(thing);
+//                iterator.remove();
+//                return true;
+//            } else iterator.remove();
+//        }
+//        return false;
+//
+//    }
 
     public void fillBag(TreeSet<Thing> things){
-        while (stow(things)) stow(things);
+        Iterator<Thing> iterator = things.iterator();
+        if (!iterator.hasNext()){
+            return;
+        }
+        Thing thing = iterator.next();
+        if(capacity >= thing.getWeight()){
+            add(thing);
+        }
 
+        iterator.remove();
+        fillBag(things);
     }
 
     public ArrayList<Thing> getThings() {
