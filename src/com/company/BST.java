@@ -4,6 +4,7 @@ import java.util.NoSuchElementException;
 
 public class BST<Key extends Comparable<Key>, Value> {
     Node root;
+    int level;
 
     private class Node {
         private Key key;
@@ -50,6 +51,7 @@ public class BST<Key extends Comparable<Key>, Value> {
         return get(root, key);
     }
 
+
     private Value get(Node node, Key key) {
         isKeyNotNull(key);
         if (node == null) {
@@ -64,6 +66,7 @@ public class BST<Key extends Comparable<Key>, Value> {
             return get(node.right, key);
         }
     }
+
 
     public void put(Key key, Value value) {
         isKeyNotNull(key);
@@ -166,10 +169,21 @@ public class BST<Key extends Comparable<Key>, Value> {
     }
 
     public String toString(Node node) {
+
         if (node == null) {
             return "";
         }
-        return toString(node.left) + " " + node.value.toString()
+        return  toString(node.left) + " " + node.value.toString()
                 + " " + toString(node.right);
     }
+
+    public boolean isBalanced(Node root, int level) {
+        this.level = level;
+        if ((root.left == null && root.right != null)
+        || (root.left != null && root.right == null)) return false;
+        if ((root.left == null && root.right == null)) return true;
+        this.level++;
+        return isBalanced(root.left, this.level) && isBalanced(root.right, this.level);
+    }
+
 }
