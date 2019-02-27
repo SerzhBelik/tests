@@ -8,8 +8,10 @@ public class Main {
     public static void main(String[] args) {
 
         // плотный граф
-        Graph graph1 = new Graph(10);
+        Graph graph1 = new Graph(12);
         graph1.addEdge(0,1);
+        graph1.addEdge(0,11);
+        graph1.addEdge(0,10);
         graph1.addEdge(0,2);
         graph1.addEdge(1,3);
         graph1.addEdge(1,4);
@@ -32,15 +34,15 @@ public class Main {
 
         // разряженный граф
         Graph graph2 = new Graph(10);
-        graph1.addEdge(0,1);
-        graph1.addEdge(0,2);
-        graph1.addEdge(1,4);
-        graph1.addEdge(5,3);
-        graph1.addEdge(6,4);
-        graph1.addEdge(6,5);
-        graph1.addEdge(6,7);
-        graph1.addEdge(6,8);
-        graph1.addEdge(9,7);
+        graph2.addEdge(0,1);
+        graph2.addEdge(0,2);
+        graph2.addEdge(1,4);
+        graph2.addEdge(5,3);
+        graph2.addEdge(6,4);
+        graph2.addEdge(6,5);
+        graph2.addEdge(6,7);
+        graph2.addEdge(6,8);
+        graph2.addEdge(9,7);
 
         System.out.println("Разряженный граф");
         DepthFirstPaths dfp2 = new  DepthFirstPaths(graph2, 0);
@@ -48,6 +50,13 @@ public class Main {
 
         breadthTrial(bfp2, 9);
         depthTrial(dfp2, 9);
+
+
+
+        Hinge hinge = new Hinge(graph1);
+
+        System.out.println(graph1.getAdjList(2));
+        System.out.println(hinge.getHingeList());
     }
 
     public static void breadthTrial(BreadthFirstPath bfp, int dist){
