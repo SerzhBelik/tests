@@ -33,8 +33,10 @@ public class Main {
         depthTrial(dfp1, 9);
 
         // разряженный граф
-        Graph graph2 = new Graph(10);
+        Graph graph2 = new Graph(12);
         graph2.addEdge(0,1);
+        graph2.addEdge(0,10);
+        graph2.addEdge(0,11);
         graph2.addEdge(0,2);
         graph2.addEdge(1,4);
         graph2.addEdge(5,3);

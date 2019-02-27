@@ -40,14 +40,10 @@ public class Hinge {
     }
 
     private void checkPath(int checkedVertex) {
-        int a = (int)adjArr[0];
         cutVertex(checkedVertex);
-
         dfp = new DepthFirstPaths(g, (int)adjArr[0]);
         for (int i = 1; i < adjArr.length; i++) {
-            int b = (int)adjArr[i];
             if (!dfp.hasPathTo((int)adjArr[i])) {
-//                System.out.println(checkedVertex);
                 hingeList.add(checkedVertex);
                 return;
             }
