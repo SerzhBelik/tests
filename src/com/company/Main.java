@@ -2,64 +2,66 @@ package com.company;
 
 
 public class Main {
-    static int maxlvl; // максимальный уровень на котором сохраняется баланс при обходе левой ветки
-    static float avglvl; // средний уровень на котором сохраняется баланс
-    static int count;
-    static double balancedProportion = 0;
-    static int trueBalanced;
+    private static long timeStart;
+    private static long timeResult;
 
     public static void main(String[] args) {
 
-        trial(10000, 3);
-//        количество уровней дерева при идеальной балансировке 2
-//        max lvl = 1
-//        average lvl =0.328
-//        balanced proportion = 0.328
-        trial(10000, 7);
-//        количество уровней дерева при идеальной балансировке 3
-//        max lvl = 3
-//        average lvl =1.04
-//        balanced proportion = 0.0492
-        trial(10000, 15);
-//        количество уровней дерева при идеальной балансировке 4
-//        max lvl = 7
-//        average lvl =1.8031
-//        balanced proportion = 0.0017
-        trial(10000, 31);
-//        количество уровней дерева при идеальной балансировке 5
-//        max lvl = 13
-//        average lvl =2.5161
-//        balanced proportion = 0.0
-        trial(10000, 63);
-//        количество уровней дерева при идеальной балансировке 6
-//        max lvl = 14
-//        average lvl =3.1602
-//        balanced proportion = 0.0
+        // плотный граф
+        Graph graph1 = new Graph(10);
+        graph1.addEdge(0,1);
+        graph1.addEdge(0,2);
+        graph1.addEdge(1,3);
+        graph1.addEdge(1,4);
+        graph1.addEdge(2,5);
+        graph1.addEdge(5,3);
+        graph1.addEdge(5,4);
+        graph1.addEdge(6,4);
+        graph1.addEdge(6,3);
+        graph1.addEdge(6,5);
+        graph1.addEdge(6,7);
+        graph1.addEdge(6,8);
+        graph1.addEdge(8,7);
+        graph1.addEdge(9,7);
+
+        DepthFirstPaths dfp1 = new  DepthFirstPaths(graph1, 0);
+        BreadthFirstPath bfp1 = new BreadthFirstPath(graph1,0);
+        System.out.println("Плотный граф");
+        breadthTrial(bfp1, 9);
+        depthTrial(dfp1, 9);
+
+        // разряженный граф
+        Graph graph2 = new Graph(10);
+        graph1.addEdge(0,1);
+        graph1.addEdge(0,2);
+        graph1.addEdge(1,4);
+        graph1.addEdge(5,3);
+        graph1.addEdge(6,4);
+        graph1.addEdge(6,5);
+        graph1.addEdge(6,7);
+        graph1.addEdge(6,8);
+        graph1.addEdge(9,7);
+
+        System.out.println("Разряженный граф");
+        DepthFirstPaths dfp2 = new  DepthFirstPaths(graph2, 0);
+        BreadthFirstPath bfp2 = new BreadthFirstPath(graph2,0);
+
+        breadthTrial(bfp2, 9);
+        depthTrial(dfp2, 9);
     }
 
-    public static void trial(int loop, int treeElem){
-        BST<Integer, Integer> tree;
-        maxlvl = 0;
-        trueBalanced = 0;
-        count = 0;
-        for (int j = 0; j < loop; j++) {
-            tree = new BST<>();
-            for (int i = 0; i < treeElem; i++) {
-                int arg = ((int) (Math.random() * 200)) - 100;
-                tree.put(arg, arg);
-            }
-//            System.out.println(tree.isBalanced(tree.root, 0));
-            if(tree.isBalanced(tree.root, 0)) trueBalanced++;
-//            System.out.println(trueBalanced);
-            if (maxlvl < tree.level) maxlvl = tree.level;
-            count = count + tree.level;
+    public static void breadthTrial(BreadthFirstPath bfp, int dist){
+        timeStart = System.nanoTime();
+        bfp.hasPathTo(dist);
+        timeResult = System.nanoTime() - timeStart;
+        System.out.println("поиск в ширину : " + timeResult);
+    }
 
-        }
-        avglvl = (float) count/loop;
-        balancedProportion = (double) trueBalanced/loop;
-        System.out.println("max lvl = " + maxlvl);
-        System.out.println("average lvl =" + avglvl);
-        System.out.println("balanced proportion = " + balancedProportion);
+    public static void depthTrial(DepthFirstPaths dfp, int dist){
+        timeStart = System.nanoTime();
+        dfp.hasPathTo(dist);
+        timeResult = System.nanoTime() - timeStart;
+        System.out.println("поиск в глубину : " + timeResult);
     }
 }
 
