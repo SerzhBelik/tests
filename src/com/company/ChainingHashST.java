@@ -3,13 +3,17 @@ package com.company;
 import java.util.LinkedList;
 
 public class ChainingHashST<Key, Value> {
-    private int capacity = 97;
+    private int capacity;
     private int size = 0;
 
     private LinkedList<Node>[] st;
 
     public ChainingHashST(int capacity) {
+        if (!isPrime(capacity)){
+            capacity = getPrime(capacity);
+        }
         this.capacity = capacity;
+
         st = new LinkedList[capacity];
         for (int i = 0; i < capacity; i++) {
             st[i] = new LinkedList<>();
@@ -100,4 +104,19 @@ public class ChainingHashST<Key, Value> {
         }
         return null;
     }
+
+    private boolean isPrime(int n){
+        for(int j=2; (j*j <= n); j++)
+            if( n % j == 0)
+                return false;
+        return true;
+    }
+
+    private int getPrime(int min){
+        for(int i = min+1; true; i++)
+            if( isPrime(i))
+                return i;
+    }
+
+
 }

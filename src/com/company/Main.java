@@ -4,7 +4,7 @@ package com.company;
 public class Main {
 
     public static void main(String[] args) {
-        ChainingHashST<Integer, String> chst = new ChainingHashST<>(7);
+        ChainingHashST<Integer, String> chst = new ChainingHashST<>(8);
         for (int i = 0; i < 21; i++) {
             chst.put(i, "i =" + i);
         }
